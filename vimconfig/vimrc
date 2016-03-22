@@ -226,18 +226,18 @@ command! Phpcs execute RunPhpcs()
     "" plugin - taglist.vim 查看函数列表，需要ctags程序
     " F4 打开隐藏taglist窗口
     " "-----------------------------------------------------------------
-""nnoremap <silent><F4> :TlistToggle<CR>
-""    let Tlist_Show_One_File = 1 " 不同时显示多个文件的tag，只显示当前文件的
-""    let Tlist_Exit_OnlyWindow = 1 " 如果taglist窗口是最后一个窗口，则退出vim
-""    let Tlist_Use_Right_Window = 1 " 在右侧窗口中显示taglist窗口
-""    let Tlist_File_Fold_Auto_Close=1 " 自动折叠当前非编辑文件的方法列表
-""    let Tlist_Auto_Open = 0
-""    let Tlist_Auto_Update = 1
-""    let Tlist_Hightlight_Tag_On_BufEnter = 1
-""    let Tlist_Enable_Fold_Column = 0
-""    let Tlist_Process_File_Always = 1
-""    let Tlist_Display_Prototype = 0
-""    let Tlist_Compact_Format = 1
+    ""nnoremap <silent><F4> :TlistToggle<CR>
+    ""    let Tlist_Show_One_File = 1 " 不同时显示多个文件的tag，只显示当前文件的
+    ""    let Tlist_Exit_OnlyWindow = 1 " 如果taglist窗口是最后一个窗口，则退出vim
+    ""    let Tlist_Use_Right_Window = 1 " 在右侧窗口中显示taglist窗口
+    ""    let Tlist_File_Fold_Auto_Close=1 " 自动折叠当前非编辑文件的方法列表
+    ""    let Tlist_Auto_Open = 0
+    ""    let Tlist_Auto_Update = 1
+    ""    let Tlist_Hightlight_Tag_On_BufEnter = 1
+    ""    let Tlist_Enable_Fold_Column = 0
+    ""    let Tlist_Process_File_Always = 1
+    ""    let Tlist_Display_Prototype = 0
+    ""    let Tlist_Compact_Format = 1
 
     "-----------------------------------------------------------------
     "" plugin - NeoComplCache.vim 自动补全插件
@@ -312,14 +312,75 @@ smap <silent> <C-e> <Plug>(neocomplcache_snippets_expand)
             \ 'ctagsbin'  : 'gotags',
             \ 'ctagsargs' : '-sort -silent'
                 \ }
-nmap <F8> :TagbarToggle<CR>
-"godef配置
-let g:godef_split=0
-let g:godef_split=2
-let g:godef_split=3
-let g:godef_same_file_in_same_window=1
+                nmap <F8> :TagbarToggle<CR>
+                "godef配置
+                let g:godef_split=0
+                let g:godef_split=2
+                let g:godef_split=3
+    let g:godef_same_file_in_same_window=1
 function! GotoDefinition()
     let n = search("\\<".expand("<cword>")."\\>[^(]*([^)]*)\\s*\\n*\\s*{")
     endfunction
     map <F5> :call GotoDefinition()<CR>
     imap <F5> <c-o>:call GotoDefinition()<CR>
+
+
+function! ToggleNERDTreeAndTagbar()
+    let w:jumpbacktohere = 1
+
+    if exists('t:NERDTreeBufName')
+    let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
+    else
+    let nerdtree_open = 0
+    endif
+    let tagbar_open = bufwinnr('__Tagbar__') != -1
+
+    if nerdtree_open && tagbar_open
+    NERDTreeClose
+    TagbarClose
+    elseif nerdtree_open
+    TagbarOpen
+    elseif tagbar_open
+    NERDTree
+    else
+    NERDTree
+    TagbarOpen
+    endif
+
+    for window in range(1, winnr('$'))
+    execute window . 'wincmd w'
+    if exists('w:jumpbacktohere')
+    unlet w:jumpbacktohere
+    break
+    endif
+    endfor
+    endfunction
+    nnoremap <leader>\ :call ToggleNERDTreeAndTagbar()<CR>
+
+
+let g:winManagerWindowLayout='NERDTree|Tagbar'
+let g:winManagerWidth=30
+let g:AutoOpenWinManager = 1 "这里要配合修改winmanager.vim文件，见下方说明"
+ 
+let g:NERDTree_title = "[NERDTree]"
+function! NERDTree_Start()
+        exe 'q' "执行一个退出命令，关闭自动出现的窗口"
+            exe 'NERDTree'
+            endfunction
+             
+            function! NERDTree_IsValid()
+        return 1
+        endfunction
+         
+        noremap <f5> :NERDTreeFind<cr>
+         
+        let g:Tagbar_title = "[Tagbar]"
+        function! Tagbar_Start()
+        exe 'q' "执行一个退出命令，关闭自动出现的窗口"
+            exe 'TagbarOpen'
+            endfunction
+             
+            function! Tagbar_IsValid()
+        return 1
+        endfunction
+        let g:tagbar_vertical = 30
