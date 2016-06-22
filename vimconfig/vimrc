@@ -259,8 +259,8 @@ command! Phpcs execute RunPhpcs()
 smap <silent> <C-e> <Plug>(neocomplcache_snippets_expand)
 
     "set tags+=/Applications/XAMPP/htdocs/diditaxi/coupon/trunk/tags
-    set tags+=/Users/lcwxz1989/Workspaces/goproject/src/codis
-    set tags+=./tags;
+    "set tags+=/Users/lcwxz1989/Workspaces/goproject/src/codis
+    "set tags+=./tags;
 
 
     "-----------------------------------------------------------------
@@ -384,3 +384,6 @@ function! NERDTree_Start()
         return 1
         endfunction
         let g:tagbar_vertical = 30
+
+
+:set runtimepath^=/Users/lcwxz1989/.vim/bundle/vim-erlang-tags
