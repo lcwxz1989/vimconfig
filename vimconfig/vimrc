@@ -1,3 +1,4 @@
+let g:solarized_termcolors=256
 set incsearch                              
 " tab键为4个空格
 set tabstop=4
@@ -57,7 +58,7 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 
 " 配色方案
-set background=dark
+set background=light
 colorscheme solarized
 "colorscheme molokai
 "colorscheme phd
@@ -118,7 +119,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'gcmt/wildfire.vim'
 Plugin 'sjl/gundo.vim'
-Plugin 'Lokaltog/vim-easymotion'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'lilydjwg/fcitx.vim'
 " 插件列表结束
@@ -257,4 +257,4 @@ function! NERDTree_Start()
         let g:tagbar_vertical = 30
 
 
-set runtimepath^=/Users/lcwxz1989/.vim/bundle/vim-erlang-tags
+"set runtimepath^=/Users/lcwxz1989/.vim/bundle/vim-erlang-tags
