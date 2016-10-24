@@ -1,4 +1,3 @@
-let g:solarized_termcolors=256
 set incsearch                              
 " tab键为4个空格
 set tabstop=4
@@ -56,10 +55,12 @@ filetype plugin on
 " 让配置变更立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
-
+" 设定颜色集合，必须放在第一行
+let g:solarized_termcolors=256
 " 配色方案
-set background=light
+set background=dark
 colorscheme solarized
+let g:solarized_termcolors=256
 "colorscheme molokai
 "colorscheme phd
 
