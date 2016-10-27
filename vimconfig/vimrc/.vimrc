@@ -122,6 +122,15 @@ Plugin 'gcmt/wildfire.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'lilydjwg/fcitx.vim'
+
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'fatih/molokai'
+Plugin 'SuperTab'
+Plugin 'unite.vim'
+Plugin 'fatih/vim-go'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'derekwyatt/vim-scala'
 " 插件列表结束
 call vundle#end()
 filetype plugin indent on
